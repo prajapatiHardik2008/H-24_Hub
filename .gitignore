@@ -1,0 +1,18 @@
+# Sensitive file (API Keys)
+.env
+
+# Pyrogram session file (Do not share this!)
+*.session
+*.session-journal
+
+# Python compiled files
+__pycache__/
+*.pyc
+
+# Downloads folder (Cloud data ko local mat karo)
+Downloads/
+*.zip
+
+# OS temporary files
+.DS_Store
+Thumbs.db
