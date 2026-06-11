@@ -27,21 +27,21 @@ def make_zip(source_path):
     else:
         with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
             zipf.write(source_path, os.path.basename(source_path))
-    UI.custom_print(f"Created zip file: {zip_path}")
+    UI.custom_print(f"Created zip file: {zip_path}","green")
     return zip_path
 
 def progress(current, total):
         #UI.show_loading(f"Uploading... {current * 100 / total:.1f}%")
-        UI.custom_print(f"{current * 100 / total:.1f}% uploaded")
+        UI.custom_print(f"{current * 100 / total:.1f}% uploaded","green")
 
 app = Client("my_session", api_id = api_id , api_hash = api_hash)
 
 async def main(file_path):
     async with app:
-        UI.custom_print("Uploading file as zip format...")
+        UI.custom_print("Uploading file as zip format...","green")
         await app.send_document(chat_id="me",document =file_path, progress=progress)
-        UI.custom_print("File uploaded successfully!")
-        UI.custom_print("Cleaning up...")
+        UI.custom_print("File uploaded successfully!","green")
+        UI.custom_print("Cleaning up...","red")
         os.remove(file_path)
     
 if __name__ == "__main__":
@@ -53,7 +53,7 @@ if __name__ == "__main__":
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
         file_path = make_zip(file_path)
-        UI.custom_print(f"Uploading {file_path}...")
+        UI.custom_print(f"Uploading {file_path}...","green")
         loop.run_until_complete(main(file_path))
     else:
         UI.custom_print("Error: Invalid file path!", style="red")

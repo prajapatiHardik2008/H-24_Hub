@@ -11,20 +11,19 @@ api_hash = os.getenv("API_HASH")
 app = Client("my_session",api_id=api_id,api_hash=api_hash)
 async def fetch_saved_files():
     async with app:
-        UI.custom_print("Fetching your saved messages...")
-        
+        UI.show_loading("Fetching your saved messages...","blue")
         # 'me' matlab Saved Messages
         async for message in app.get_chat_history("me", limit=50):
             # Check karte hain ki message mein document (file) hai ya nahi
             if message.document:
                 file_name = message.document.file_name
                 file_id = message.id
-                UI.custom_print(f"ID: {file_id} | File: {file_name}")
+                UI.custom_print(f"ID: {file_id} | File: {file_name}","gray")
             
             # Agar sirf text hai
             elif message.text:
                 text = message.text[:30] # Sirf shuru ke 30 characters
-                UI.custom_print(f"ID: {message.id} | Text: {text}...")
+                UI.custom_print(f"ID: {message.id} | Text: {text}...","black")
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

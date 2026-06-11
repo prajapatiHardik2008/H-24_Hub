@@ -17,7 +17,7 @@ async def download_file(file_name):
         async for message in app.search_messages("me", query=file_name, limit=1):
             if message.document:
                 found = True
-                UI.custom_print(f"Downloading {file_name}...")
+                UI.custom_print(f"Downloading {file_name}...","yellow")
                 download_dir = os.path.join(os.getcwd(), "Downloads") 
                 
                 #:
@@ -29,10 +29,10 @@ async def download_file(file_name):
                 final_path = os.path.join(download_folder, file_name)
 
                 # Download 
-                path = await app.download_media(message, file_name=final_path , progress= lambda c, t: UI.custom_print(f"Downloading {c*100/t} % ") )
-                UI.custom_print(F"File Downloaded !")
+                path = await app.download_media(message, file_name=final_path , progress= lambda c, t: UI.custom_print(f"Downloading {c*100/t} % ","pink") )
+                UI.custom_print(F"File Downloaded !","green")
         if not found:
-            UI.custom_print(f"File Not Found {file_name}")
+            UI.custom_print(f"File Not Found {file_name}","red")
 if __name__ == "__main__":
     # Naya loop force karo
     user_file = input("Enter the File name to Download::- ")
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         loop = asyncio.get_event_loop()
     except RuntimeError:
         loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        asyncio.set_event_loop(loop)    
     
     # Run the coroutine in the manually created loop
     loop.run_until_complete(download_file(user_file))

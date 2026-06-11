@@ -11,12 +11,13 @@ class UIHandler:
             f"[bold cyan]{title}[/bold cyan]\n[dim]{subtitle}[/dim]",
             border_style="blue"
         ))
-    
-    def custom_print(self,message, style="green"):
+    def custom_print(self,message,style):
         self.console.print(f"[{style}]> {message}[/{style}]")
-    
-    def show_loading(self,message="Processing...", duration=2):
-        spinner = Spinner("dots12", text=message, style="yellow")
+    # def custom_print(self,message, style="green"):
+    #     self.console.print(f"[{style}]> {message}[/{style}]")
+
+    def show_loading(self,message,color,duration=2):
+        spinner = Spinner("dots12", text=message, style=color)
         with Live(spinner, refresh_per_second=10):
             time.sleep(duration)
 
