@@ -27,13 +27,13 @@ This way, you can store **unlimited data** on Telegram without worrying about fi
 
 ## ✨ Features
 
-✅ **ZIP Compression** - Automatic ZIP compression for efficient storage
-✅ **Progress Tracking** - Real-time upload/download progress bars using Rich library
-✅ **Repo Management** - Create, clone, and view your stored repositories
-✅ **Security First** - Sensitive keys protected via .env and .gitignore
-✅ **Async Operations** - Fast asynchronous file handling with Pyrogram
-✅ **Beautiful UI** - Colorful terminal interface with custom styling
-✅ **Easy Setup** - Simple configuration with Telegram API credentials
+✅ **ZIP Compression** - Automatic ZIP compression for efficient storage <br> 
+✅ **Progress Tracking** - Real-time upload/download progress bars using Rich library <br>
+✅ **Repo Management** - Create, clone, and view your stored repositories <br>
+✅ **Security First** - Sensitive keys protected via .env and .gitignore <br>
+✅ **Async Operations** - Fast asynchronous file handling with Pyrogram <br>
+✅ **Beautiful UI** - Colorful terminal interface with custom styling <br>
+✅ **Easy Setup** - Simple configuration with Telegram API credentials<br>
 
 ---
 
