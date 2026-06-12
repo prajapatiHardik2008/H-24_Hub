@@ -1,4 +1,4 @@
-from saved_files import fetch_saved_files
+from saved_files import fetch_saved_files,search_repo
 from upload_file import main as upl ,make_zip, progress as progress_of_upload
 from download_file import download_file
 from pyrogram import Client
@@ -70,12 +70,13 @@ if __name__ == "__main__":
         UI.custom_print("-----------------------------------","red")
         UI.custom_print("[+] 1 Create your repo ","green")
         UI.custom_print("[-] 2 Clone your repo ","yellow")
-        UI.custom_print("[+] 3 View  your repo ","pink")
-        UI.custom_print("[*] 4 Exit  ","red")
+        UI.custom_print("[+] 3 View  your repo ","magenta")
+        UI.custom_print("[+] 4 Search  your repo ","orange1")
+        UI.custom_print("[*] 5 Exit  ","red")
         UI.custom_print("-----------------------------------","red")
 # 
         choice = int(input("[+] Enter your choice ::- "))
-        if choice == 4:
+        if choice == 5:
             break
         elif choice == 1:
             file_path = input("[+] Enter the path of the file to upload: ")
@@ -123,6 +124,10 @@ if __name__ == "__main__":
             loop.run_until_complete(download_file(user_file))
         elif choice >4:
             UI.custom_print("[!]Please Enter a valid choice ","red")
+        elif choice == 4:
+            src = input("[+] Enter your File to search ::- ")
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(search_repo(src))
         else:
             loop = asyncio.get_event_loop()
             loop.run_until_complete(fetch_saved_files())
