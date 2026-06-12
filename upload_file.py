@@ -4,7 +4,9 @@ import os
 import dotenv
 import zipfile
 from ui_handler import UIHandler
-
+import stat
+import shutil
+import time
 dotenv.load_dotenv()
 
 UI = UIHandler()
@@ -35,6 +37,10 @@ def progress(current, total):
         UI.custom_print(f"{current * 100 / total:.1f}% uploaded","green")
 
 app = Client("my_session", api_id = api_id , api_hash = api_hash)
+def remove_readonly(func, path, excinfo):
+    # Agar file read-only hai, toh permission change karke delete karo
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
 
 async def main(file_path):
     async with app:
@@ -42,8 +48,23 @@ async def main(file_path):
         await app.send_document(chat_id="me",document =file_path, progress=progress)
         UI.custom_print("File uploaded successfully!","green")
         UI.custom_print("Cleaning up...","red")
-        os.remove(file_path)
-    
+        
+        if os.path.isdir(file_path):
+            try:
+                time.sleep(1) 
+                shutil.rmtree(file_path, onerror=remove_readonly)
+                UI.custom_print(f"Successfully cleaned up: {file_path}", "green")
+            except Exception as e:
+                UI.custom_print(f"Error cleaning up: {e}", "red")
+        else:
+            try:
+                if os.path.exists(file_path):
+                    os.chmod(file_path,stat.S_IWRITE)
+                    os.remove(file_path)
+            except Exception as e:
+                UI.custom_print(f"Error removing file: {e}", "red")
+
+            
 if __name__ == "__main__":
     file_path = input("Enter the path of the file to upload: ")
     if os.path.exists(file_path):

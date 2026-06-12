@@ -7,6 +7,8 @@ import os
 import dotenv
 from ui_handler import UIHandler
 import shutil
+import stat
+import time 
 UI = UIHandler()
 
 dotenv.load_dotenv()
@@ -40,9 +42,12 @@ async def create_repo(repo_name):
             UI.custom_print(f"Repo name '{current_name}' is available!", "green")
             return current_name   
 
-
-async def down(repo_name):
-    await download_file()
+def remove_readonly(func, path, excinfo):
+    # Agar file read-only hai, toh permission change karke delete karo
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+# async def down(repo_name):
+#     await download_file()
 
 if __name__ == "__main__":
     UI.custom_print(r'''
@@ -96,8 +101,12 @@ if __name__ == "__main__":
                 UI.custom_print(f"Uploading {file_path}...","green")
                 loop.run_until_complete(upload(file_path))
                 if os.path.isdir(file_path):
-                    shutil.rmtree(file_path) 
-                    UI.custom_print(f"Successfully cleaned up: {file_path}", "green")
+                    try:
+                        time.sleep(1)
+                        shutil.rmtree(file_path,onerror=remove_readonly) 
+                        UI.custom_print(f"Successfully cleaned up: {file_path}", "green")
+                    except Exception as e:
+                        UI.custom_print(f"Error :- {e}","red")
                 else:
                     os.remove(file_path)
             else:
