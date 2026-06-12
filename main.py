@@ -6,7 +6,7 @@ import asyncio
 import os
 import dotenv
 from ui_handler import UIHandler
-
+import shutil
 UI = UIHandler()
 
 dotenv.load_dotenv()
@@ -36,7 +36,7 @@ async def create_repo(repo_name):
                 # User se naya naam maango (Terminal input)
                 UI.custom_print(f"Error: {current_name} is already taken.", "red")
                 current_name = input("Please enter a different repo name: ")
-            
+            print(Repos)
             UI.custom_print(f"Repo name '{current_name}' is available!", "green")
             return current_name   
 
@@ -59,7 +59,6 @@ if __name__ == "__main__":
                                                                                                                                                                                              
 
 ''',"blue")
-    
     while True:
         UI.custom_print("-----------------------------------","red")
         UI.custom_print("             H-24 's HUB           ","red")
@@ -69,12 +68,25 @@ if __name__ == "__main__":
         UI.custom_print("[+] 3 View  your repo ","pink")
         UI.custom_print("[*] 4 Exit  ","red")
         UI.custom_print("-----------------------------------","red")
-
+# 
         choice = int(input("[+] Enter your choice ::- "))
         if choice == 4:
             break
         elif choice == 1:
             file_path = input("[+] Enter the path of the file to upload: ")
+            
+            repo_name = input("[+] Enter the Repo name ::- ")
+            if not repo_name.endswith(".zip"):
+                repo_name= f"{repo_name}.zip"
+
+            loop = asyncio.get_event_loop()
+            repo_name = loop.run_until_complete(create_repo(repo_name))
+            if repo_name.endswith(".zip"):
+                repo_name = os.path.splitext(repo_name)[0]  
+            UI.custom_print(f"[+] your repo name ::- {repo_name}","red")
+            destination_dir = r"./upload/"+repo_name
+            shutil.copytree(file_path, destination_dir)
+            file_path = r"./upload/"+repo_name
             if os.path.exists(file_path):
                 try:
                     loop = asyncio.get_event_loop()
@@ -83,6 +95,11 @@ if __name__ == "__main__":
                     asyncio.set_event_loop(loop)
                 UI.custom_print(f"Uploading {file_path}...","green")
                 loop.run_until_complete(upload(file_path))
+                if os.path.isdir(file_path):
+                    shutil.rmtree(file_path) 
+                    UI.custom_print(f"Successfully cleaned up: {file_path}", "green")
+                else:
+                    os.remove(file_path)
             else:
                 UI.custom_print("Error: Invalid file path!","red")
         elif choice == 2:

@@ -16,8 +16,8 @@ class UIHandler:
     # def custom_print(self,message, style="green"):
     #     self.console.print(f"[{style}]> {message}[/{style}]")
 
-    def show_loading(self,message,color,duration=2):
-        spinner = Spinner("dots12", text=message, style=color)
+    def show_loading(self,message,color,spinner_type,duration=2):
+        spinner = Spinner(spinner_type, text=message, style=color)
         with Live(spinner, refresh_per_second=10):
             time.sleep(duration)
 
