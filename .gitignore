@@ -16,3 +16,4 @@ Downloads/
 # OS temporary files
 .DS_Store
 Thumbs.db
+dummy.py
