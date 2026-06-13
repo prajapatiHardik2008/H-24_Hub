@@ -231,13 +231,13 @@ Cost Saved: ~$10-20/month vs traditional cloud storage
 
 ### 🎯 Phase 1: Enhanced Core Features ⭐ Priority
 - [ ] **File Encryption** - Add AES-256 encryption before uploading
-- [ ] **Selective File Upload** - Upload specific files instead of entire folders
+- [X] **Selective File Upload** - Upload specific files instead of entire folders
 - [ ] **Auto-Compression Settings** - Choose compression level (fast/balanced/maximum)
 - [ ] **Scheduled Backups** - Automatic daily/weekly backups
 - [ ] **Backup History** - Version tracking with timestamps
 
 ### 🎯 Phase 2: Advanced Storage Management
-- [ ] **File Search & Filter** - Search by name, date, or size in Telegram
+- [X] **File Search & Filter** - Search by name, date, or size in Telegram
 - [ ] **Differential Backup** - Only backup changed files (like Git)
 - [ ] **Deduplication** - Detect and skip duplicate files
 - [ ] **Storage Analytics** - Show used space and storage breakdown
