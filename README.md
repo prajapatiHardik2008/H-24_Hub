@@ -196,7 +196,144 @@ ID: 12348 | Text: Important notes about project...
 
 ---
 
-### 💾 Use Case 4: Multi-Backup Strategy
+---
+### 💾 Use Case 4 : File Searching  
+**What it does:** Search your repo and file  
+**Steps:**
+1. Select option `4` from the main menu
+2. Enter your file name 
+```
+> -----------------------------------
+>              H-24 's HUB
+> -----------------------------------
+> [+] 1 Create your repo
+> [-] 2 Clone your repo
+> [+] 3 View  your repo
+> [+] 4 Search  your repo
+> [+] 5 Upload  Privet File
+> [+] 6 Decrypt Privet file
+> [*] 7 Exit
+> -----------------------------------
+[+] Enter your choice ::- 4
+[+] Enter your File to search ::- Test_repo
+▰▰▱▱▱▱▱ Searching your File ::-
+> [+] Your file Found as Name ::- Test_repo.zip
+```
+```
+> -----------------------------------
+>              H-24 's HUB
+> -----------------------------------
+> [+] 1 Create your repo
+> [-] 2 Clone your repo
+> [+] 3 View  your repo
+> [+] 4 Search  your repo
+> [+] 5 Upload  Privet File
+> [+] 6 Decrypt Privet file
+> [*] 7 Exit
+> -----------------------------------
+[+] Enter your choice ::- 4
+[+] Enter your File to search ::- Test_repo.zip
+🌏  Searching your File ::-
+> [+] Your file Found as Name ::- Test_repo.zip
+```
+**you can use this function with  .zip  or with out zip  **
+![View Repo Screenshot](./assets/search1.png)
+<br>
+<br>
+![View Repo Screenshot](./assets/search2.png)
+---
+---
+
+---
+Key and warning
+Never share your key to anyone and keep it safe for file decryption !
+**Example:**
+```
+╭──────────────────────  H-24 SECURITY PROTOCOL  ──────────────────────╮
+│                                                                      │
+│  • The system-generated key is strictly random.                      │
+│  • Once the file is uploaded, access without the key is impossible.  │
+│  • Never share your secret key with anyone.                          │
+│  • Use only the H-24 Decryptor to decrypt your files.                │
+│  • Use this method for particular file not for folder                │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+> Your Key :- b'3ab2GCdD8NRMbb6dnrOJ6gVlHhq8h-c1oIF34vJ3k4A='
+```
+![View Repo Screenshot](./assets/key_war.png)
+
+---
+
+---
+### 💾 Use Case 5 : File Encryption 
+**What it does:** Encrypt the file using a random key 
+**Steps:**
+1. Select option `5` from the main menu
+2. Enter your file path 
+3. system will genrate a Encrypted  file with .locked Extension 
+4. **Be alert :** Always save your key before uploading your privet and Encrypted file 
+
+
+**Real-world Example:**
+```
+
+> -----------------------------------
+>              H-24 's HUB
+> -----------------------------------
+> [+] 1 Create your repo
+> [-] 2 Clone your repo
+> [+] 3 View  your repo
+> [+] 4 Search  your repo
+> [+] 5 Upload  Privet File
+> [+] 6 Decrypt Privet file
+> [*] 7 Exit
+> -----------------------------------[+] Enter your choice::-5
+[+] Enter the file path: C:\Users\ramni\OneDrive\Desktop\test Floder\index1.html
+> [!] Your file Encrypted successfully!
+Uploading C:\Users\ramni\OneDrive\Desktop\test Floder\index1.html.locked...
+> Created zip file: C:\Users\ramni\OneDrive\Desktop\test Floder\index1.html.locked.zip
+> Uploading file as zip format...
+> 100.0% uploaded
+> File uploaded successfully!
+> Cleaning up...
+
+```
+![View Repo Screenshot](./assets/privet_upload.png)
+---
+
+
+---
+### 💾 Use Case 5 : File Decryption  
+**What it does:** Decrypt the file using  key 
+**Steps:**
+1. Select option `6` from the main menu
+2. Enter your file path 
+3. Enter your Key  
+4. **Be alert :** Always save your key before uploading your privet and Encrypted file 
+**Real-world Example:**
+```
+
+> -----------------------------------
+>              H-24 's HUB
+> -----------------------------------
+> [+] 1 Create your repo
+> [-] 2 Clone your repo
+> [+] 3 View  your repo
+> [+] 4 Search  your repo
+> [+] 5 Upload  Privet File
+> [+] 6 Decrypt Privet file
+> [*] 7 Exit
+> -----------------------------------
+[+] Enter your choice::-6
+[+]Enter the file pathD:\Telegram storage\Downloads\index\index1.html.locked
+[+] Enter your key:: 3ab2GCdD8NRMbb6dnr0J6gVlHhq8h-c1oIF34vJ3k4A=
+> File Decrypted successfully!
+```
+![View Repo Screenshot](./assets/decryption.png)
+
+
+---
+### 💾 Use Case : Multi-Backup Strategy
 
 **Scenario:** You have multiple projects and want organized backups
 
@@ -209,8 +346,6 @@ Upload 4: documents_archive.zip (1.5 GB)
 Total Storage Used: 9 GB on Telegram (FREE!)
 Cost Saved: ~$10-20/month vs traditional cloud storage
 ```
-
----
 
 ## 🔒 Security
 
