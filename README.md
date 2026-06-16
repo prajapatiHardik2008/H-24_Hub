@@ -287,7 +287,8 @@ Never share your key to anyone and keep it safe for file decryption !
 > [+] 5 Upload  Privet File
 > [+] 6 Decrypt Privet file
 > [*] 7 Exit
-> -----------------------------------[+] Enter your choice::-5
+> -----------------------------------
+[+] Enter your choice::-5
 [+] Enter the file path: C:\Users\ramni\OneDrive\Desktop\test Floder\index1.html
 > [!] Your file Encrypted successfully!
 Uploading C:\Users\ramni\OneDrive\Desktop\test Floder\index1.html.locked...
