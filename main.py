@@ -1,5 +1,5 @@
 from saved_files import fetch_saved_files,search_repo
-from upload_file import main as upl ,make_zip, progress as progress_of_upload
+from upload_file import main as upl ,make_zip
 from download_file import download_file
 from pyrogram import Client
 import asyncio
@@ -47,7 +47,7 @@ async def create_repo(repo_name):
             # Check karte hain ki message mein document (file) hai ya nahi
             if message.document:
                 file_name = message.document.file_name
-                file_id = message.id
+                #file_id = message.id
                 Repos.append(file_name)
 
             UI.show_loading("Checking is name Available ...","blue",random.choice(sp))
@@ -60,7 +60,7 @@ async def create_repo(repo_name):
             UI.custom_print(f"Repo name '{current_name}' is available!", "green")
             return current_name   
 
-def remove_readonly(func, path, excinfo):
+def remove_readonly(func, path, ):
     # Agar file read-only hai, toh permission change karke delete karo
     os.chmod(path, stat.S_IWRITE)
     func(path)
@@ -139,78 +139,81 @@ if __name__ == "__main__":
         UI.custom_print("[*] 7 Exit  ","red")
         UI.custom_print("-----------------------------------","red")
 # 
-        choice = int(input("[+] Enter your choice ::- "))
-        if choice == 7:
-            break
-        elif choice == 1:
-            file_path = input("[+] Enter the path of the file to upload: ")
-            
-            repo_name = input("[+] Enter the Repo name ::- ")
-            if not repo_name.endswith(".zip"):
-                repo_name= f"{repo_name}.zip"
+        try:
+            choice = int(input("[+] Enter your choice ::- "))
+            if choice == 7:
+                break
+            elif choice == 1:
+                file_path = input("[+] Enter the path of the file to upload: ")
 
-            loop = asyncio.get_event_loop()
-            repo_name = loop.run_until_complete(create_repo(repo_name))
-            if repo_name.endswith(".zip"):
-                repo_name = os.path.splitext(repo_name)[0]  
-            UI.custom_print(f"[+] your repo name ::- {repo_name}","red")
-            destination_dir = r"./upload/"+repo_name
-            shutil.copytree(file_path, destination_dir)
-            file_path = r"./upload/"+repo_name
-            if os.path.exists(file_path):
-                try:
-                    loop = asyncio.get_event_loop()
-                except RuntimeError:
-                    loop = asyncio.new_event_loop()
-                    asyncio.set_event_loop(loop)
-                UI.show_loading(f"Uploading {file_path}...","green",random.choice(sp))
-                loop.run_until_complete(upload(file_path))
-                if os.path.isdir(file_path):
-                    try:
-                        time.sleep(1)
-                        shutil.rmtree(file_path,onerror=remove_readonly) 
-                        UI.custom_print(f"Successfully cleaned up: {file_path}", "green")
-                    except Exception as e:
-                        UI.custom_print(f"Error :- {e}","red")
-                else:
-                    os.remove(file_path)
-            else:
-                UI.custom_print("Error: Invalid file path!","red")
-        elif choice == 2:
-            user_file = input("Enter the File name to Download::- ")
-            try:
+                repo_name = input("[+] Enter the Repo name ::- ")
+                if not repo_name.endswith(".zip"):
+                    repo_name= f"{repo_name}.zip"
+
                 loop = asyncio.get_event_loop()
-            except RuntimeError:
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-
-            # Run the coroutine in the manually created loop
-            loop.run_until_complete(download_file(user_file))
-        elif choice == 3:
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(fetch_saved_files())
-        elif choice == 4:
-            src = input("[+] Enter your File to search ::- ")
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(search_repo(src))
-        elif choice == 5:
-            file_path = input("[+] Enter the file path: ")
-            # os.path.exists use karna zyada safe hai
-            if os.path.exists(file_path) and not os.path.isdir(file_path):
-                file_path = pv_upload.encryptFile_upload(file_path) # Yahan await ki zaroorat nahi
+                repo_name = loop.run_until_complete(create_repo(repo_name))
+                if repo_name.endswith(".zip"):
+                    repo_name = os.path.splitext(repo_name)[0]  
+                UI.custom_print(f"[+] your repo name ::- {repo_name}","red")
+                destination_dir = r"./upload/"+repo_name
+                shutil.copytree(file_path, destination_dir)
+                file_path = r"./upload/"+repo_name
+                if os.path.exists(file_path):
+                    try:
+                        loop = asyncio.get_event_loop()
+                    except RuntimeError:
+                        loop = asyncio.new_event_loop()
+                        asyncio.set_event_loop(loop)
+                    UI.show_loading(f"Uploading {file_path}...","green",random.choice(sp))
+                    loop.run_until_complete(upload(file_path))
+                    if os.path.isdir(file_path):
+                        try:
+                            time.sleep(1)
+                            shutil.rmtree(file_path,onerror=remove_readonly) 
+                            UI.custom_print(f"Successfully cleaned up: {file_path}", "green")
+                        except Exception as e:
+                            UI.custom_print(f"Error :- {e}","red")
+                    else:
+                        os.remove(file_path)
+                else:
+                    UI.custom_print("Error: Invalid file path!","red")
+            elif choice == 2:
+                user_file = input("Enter the File name to Download::- ")
                 try:
                     loop = asyncio.get_event_loop()
                 except RuntimeError:
                     loop = asyncio.new_event_loop()
                     asyncio.set_event_loop(loop)
-                UI.show_loading(f"Uploading {file_path}...","green",random.choice(sp))
-                loop.run_until_complete(upload(file_path))
+
+                # Run the coroutine in the manually created loop
+                loop.run_until_complete(download_file(user_file))
+            elif choice == 3:
+                loop = asyncio.get_event_loop()
+                loop.run_until_complete(fetch_saved_files())
+            elif choice == 4:
+                src = input("[+] Enter your File to search ::- ")
+                loop = asyncio.get_event_loop()
+                loop.run_until_complete(search_repo(src))
+            elif choice == 5:
+                file_path = input("[+] Enter the file path: ")
+                # os.path.exists use karna zyada safe hai
+                if os.path.exists(file_path) and not os.path.isdir(file_path):
+                    file_path = pv_upload.encryptFile_upload(file_path) # Yahan await ki zaroorat nahi
+                    try:
+                        loop = asyncio.get_event_loop()
+                    except RuntimeError:
+                        loop = asyncio.new_event_loop()
+                        asyncio.set_event_loop(loop)
+                    UI.show_loading(f"Uploading {file_path}...","green",random.choice(sp))
+                    loop.run_until_complete(upload(file_path))
+                else:
+                    # alert_warning mein sirf message chahiye ya points?
+                    # Tumne pehle list pass ki thi, ab ek specific warning message pass karo
+                    alert_warning("SECURITY ERROR", ["This is a file-only operation.", "Folders are not supported."])
+            elif choice ==  6:
+                file_path = input("[+]Enter the file path")
+                pv_upload.decrypt(file_path)
             else:
-                # alert_warning mein sirf message chahiye ya points?
-                # Tumne pehle list pass ki thi, ab ek specific warning message pass karo
-                alert_warning("SECURITY ERROR", ["This is a file-only operation.", "Folders are not supported."])
-        elif choice ==  6:
-            file_path = input("[+]Enter the file path")
-            pv_upload.decrypt(file_path)
-        else:
-            UI.custom_print("[!]Please Enter a valid choice ","red")
+                UI.custom_print("[!]Please Enter a valid choice ","red")
+        except ValueError as v:
+            UI.custom_print(f"[!] Value error please enter a valid value {v}","red")
